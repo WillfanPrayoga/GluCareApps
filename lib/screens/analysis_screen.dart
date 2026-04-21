@@ -12,7 +12,7 @@ class AnalysisScreen extends StatelessWidget {
       backgroundColor: bgGray,
       body: Column(
         children: [
-          // --- HEADER BIRU (Sesuai Desain) ---
+          // --- HEADER BIRU ---
           Container(
             width: double.infinity,
             padding:
@@ -87,19 +87,21 @@ class AnalysisScreen extends StatelessWidget {
                     recommendation: "Cocok tanpa data lab",
                     isRecommended: false,
                     onTap: () {
-                      // Tambahkan navigasi ke kuesioner nanti di sini
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                            content: Text("Fitur Kuesioner segera hadir!")),
+                      );
                     },
                   ),
 
                   const SizedBox(height: 30),
 
-                  // --- ILUSTRASI DOKTER (DARI ASSETS) ---
+                  // --- ILUSTRASI DOKTER ---
                   Center(
                     child: Image.asset(
                       'assets/doctors_illustration.png',
                       height: 180,
                       fit: BoxFit.contain,
-                      // Jika gambar tidak terbaca, tampilkan icon cadangan
                       errorBuilder: (context, error, stackTrace) => const Icon(
                           Icons.group,
                           size: 100,
@@ -119,10 +121,13 @@ class AnalysisScreen extends StatelessWidget {
         type: BottomNavigationBarType.fixed,
         selectedItemColor: mainBlue,
         unselectedItemColor: Colors.grey,
-        currentIndex: 1, // Fokus pada menu Analisis
+        currentIndex: 1,
         onTap: (index) {
-          if (index == 0) Navigator.pushReplacementNamed(context, '/dashboard');
-          // Tambahkan logika navigasi menu lain di sini
+          if (index == 0) {
+            Navigator.pushReplacementNamed(context, '/dashboard');
+          } else if (index == 2) {
+            Navigator.pushReplacementNamed(context, '/recommendation');
+          }
         },
         items: const [
           BottomNavigationBarItem(
@@ -140,7 +145,6 @@ class AnalysisScreen extends StatelessWidget {
     );
   }
 
-  // Widget Helper untuk membuat kartu pilihan analisis
   Widget _buildAnalysisCard(
     BuildContext context, {
     required String title,
@@ -162,7 +166,7 @@ class AnalysisScreen extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
+              color: Colors.black.withValues(alpha: 0.05), // FIXED
               blurRadius: 10,
               offset: const Offset(0, 4),
             )
@@ -176,7 +180,7 @@ class AnalysisScreen extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: iconColor.withOpacity(0.1),
+                    color: iconColor.withValues(alpha: 0.1), // FIXED
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Icon(icon, color: iconColor, size: 30),
@@ -208,10 +212,11 @@ class AnalysisScreen extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 10, vertical: 5),
                         decoration: BoxDecoration(
-                          color: Colors.blue.withOpacity(0.05),
+                          color: Colors.blue.withValues(alpha: 0.05), // FIXED
                           borderRadius: BorderRadius.circular(10),
-                          border:
-                              Border.all(color: Colors.blue.withOpacity(0.1)),
+                          border: Border.all(
+                              color:
+                                  Colors.blue.withValues(alpha: 0.1)), // FIXED
                         ),
                         child: Text(tag,
                             style: const TextStyle(

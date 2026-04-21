@@ -1,42 +1,48 @@
 import 'package:flutter/material.dart';
-// Import semua halaman agar bisa dikenali oleh rute
-import 'package:glucare/screens/splash_screen.dart';
-import 'package:glucare/screens/login_screen.dart';
-import 'package:glucare/screens/register_screen.dart';
-import 'package:glucare/screens/dashboard_screen.dart';
-import 'package:glucare/screens/analysis_screen.dart';
-import 'package:glucare/screens/clinical_mode_screen.dart';
+import 'screens/splash_screen.dart';
+import 'screens/dashboard_screen.dart';
+import 'screens/analysis_screen.dart';
+import 'screens/clinical_mode_screen.dart';
+import 'screens/recommendation_screen.dart';
+import 'screens/analysis_result_screen.dart';
+import 'screens/login_screen.dart';
+import 'screens/register_screen.dart';
+import 'screens/progres_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const GluCareApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class GluCareApp extends StatelessWidget {
+  const GluCareApp({super.key});
 
   @override
   Widget build(BuildContext context) {
+    const Color mainBlue = Color(0xFF007BFF);
+
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
       title: 'GluCare',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
         useMaterial3: true,
-        // Mengatur font default aplikasi agar lebih rapi
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+        primaryColor: mainBlue,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: mainBlue,
+          primary: mainBlue,
+        ),
+        fontFamily: 'Poppins',
       ),
-
-      // HALAMAN PERTAMA: Splash Screen yang ada logonya
-      initialRoute: '/splash',
-
-      // DAFTAR ALAMAT HALAMAN (Routes)
+      initialRoute: '/',
       routes: {
-        '/splash': (context) => const SplashScreen(),
-        '/': (context) => const LoginScreen(),
+        '/': (context) => const SplashScreen(),
+        '/login': (context) => const LoginScreen(),
         '/register': (context) => const RegisterScreen(),
         '/dashboard': (context) => const DashboardScreen(),
         '/analysis': (context) => const AnalysisScreen(),
         '/clinical-mode': (context) => const ClinicalModeScreen(),
+        '/recommendation': (context) => const RecommendationScreen(),
+        '/analysis-result': (context) => const AnalysisResultScreen(),
+        '/progres': (context) => const ProgresScreen(),
       },
     );
   }

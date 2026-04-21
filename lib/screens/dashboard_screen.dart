@@ -19,34 +19,34 @@ class DashboardScreen extends StatelessWidget {
               const SizedBox(height: 20),
 
               // --- 1. HEADER PROFIL ---
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
                     children: [
-                      const CircleAvatar(
+                      CircleAvatar(
                         radius: 25,
-                        backgroundImage: AssetImage(
-                            'assets/profile.png'), // Pastikan ada fotonya
+                        backgroundImage: AssetImage('assets/profile.png'),
                         backgroundColor: Colors.blueGrey,
+                        child: Text("W", style: TextStyle(color: Colors.white)),
                       ),
-                      const SizedBox(width: 12),
+                      SizedBox(width: 12),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text("Good Morning",
+                          Text("Good Morning",
                               style:
                                   TextStyle(color: Colors.grey, fontSize: 12)),
                           Text(
-                            "Hello, Willfan!", // Sesuai nama kamu
-                            style: const TextStyle(
+                            "Hello, Willfan!",
+                            style: TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
                     ],
                   ),
-                  const Badge(
+                  Badge(
                     label: Text("1"),
                     child: Icon(Icons.notifications_none_outlined, size: 28),
                   ),
@@ -64,7 +64,7 @@ class DashboardScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                   boxShadow: [
                     BoxShadow(
-                      color: mainBlue.withOpacity(0.3),
+                      color: mainBlue.withValues(alpha: 0.3), // FIXED
                       blurRadius: 15,
                       offset: const Offset(0, 8),
                     )
@@ -163,7 +163,7 @@ class DashboardScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(height: 100), // Space untuk FAB
+              const SizedBox(height: 100),
             ],
           ),
         ),
@@ -182,6 +182,17 @@ class DashboardScreen extends StatelessWidget {
         selectedItemColor: mainBlue,
         unselectedItemColor: Colors.grey,
         currentIndex: 0,
+        onTap: (index) {
+          if (index == 1) {
+            Navigator.pushNamed(context, '/analysis');
+          } else if (index == 2) {
+            Navigator.pushNamed(context, '/recommendation');
+          } else if (index == 3) {
+            Navigator.pushNamed(context, '/progres'); // nanti
+          } else if (index == 4) {
+            Navigator.pushNamed(context, '/profil'); // nanti
+          }
+        },
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
           BottomNavigationBarItem(
@@ -197,7 +208,6 @@ class DashboardScreen extends StatelessWidget {
     );
   }
 
-  // Helper untuk kartu Streak/Intervensi
   Widget _buildStatCard(
       String title, String value, String sub, IconData icon, Color color) {
     return Expanded(
@@ -225,7 +235,6 @@ class DashboardScreen extends StatelessWidget {
                     const TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
             Text(sub, style: const TextStyle(color: Colors.grey, fontSize: 11)),
             const SizedBox(height: 10),
-            // Indikator Bar simpel
             Container(
                 height: 4,
                 decoration: BoxDecoration(
@@ -237,14 +246,13 @@ class DashboardScreen extends StatelessWidget {
     );
   }
 
-  // Helper untuk item pengingat
   Widget _buildReminderItem(
       String time, String task, Color iconCol, IconData icon) {
     return ListTile(
       leading: Container(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
         decoration: BoxDecoration(
-            color: iconCol.withOpacity(0.1),
+            color: iconCol.withValues(alpha: 0.1), // FIXED
             borderRadius: BorderRadius.circular(8)),
         child: Text(time,
             style: TextStyle(

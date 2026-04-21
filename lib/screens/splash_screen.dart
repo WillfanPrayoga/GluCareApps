@@ -11,10 +11,10 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    // Pindah ke halaman login setelah 3 detik
+    // Berpindah ke dashboard setelah 3 detik
     Future.delayed(const Duration(seconds: 3), () {
       if (mounted) {
-        Navigator.pushReplacementNamed(context, '/');
+        Navigator.pushReplacementNamed(context, '/dashboard');
       }
     });
   }
@@ -28,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
       body: SafeArea(
         child: Stack(
           children: [
-            // LOGO DAN NAMA DI TENGAH
+            // 1. Logo dan Nama di Tengah
             Center(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -41,10 +41,10 @@ class _SplashScreenState extends State<SplashScreen> {
                       shape: BoxShape.circle,
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.15),
+                          color: Colors.black.withValues(alpha: 0.15),
                           blurRadius: 30,
                           offset: const Offset(0, 10),
-                        )
+                        ),
                       ],
                     ),
                     child: Padding(
@@ -79,17 +79,15 @@ class _SplashScreenState extends State<SplashScreen> {
                 ],
               ),
             ),
-
-            // NAMA PENGEMBANG DI BAWAH (INI YANG TADI ERROR)
-            Align(
+            // 2. Nama Pengembang di Bawah
+            const Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
-                padding: const EdgeInsets.only(
-                    bottom: 40.0), // PAKAI .only(bottom: ...)
+                padding: EdgeInsets.only(bottom: 40.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Text(
+                    Text(
                       "Developed by",
                       style: TextStyle(
                         color: Colors.white60,
@@ -97,8 +95,8 @@ class _SplashScreenState extends State<SplashScreen> {
                         letterSpacing: 1.0,
                       ),
                     ),
-                    const SizedBox(height: 5),
-                    const Text(
+                    SizedBox(height: 5),
+                    Text(
                       "Nusa Health Tech",
                       style: TextStyle(
                         color: Colors.white,
